@@ -7,7 +7,8 @@ on:
   pull_request:
     branches:
       - master
-      - martin/setup
+      - master-report-commit
+      - certora-report-commit
   workflow_dispatch:
 
 jobs:
