@@ -1,0 +1,46 @@
+name: Certora Prover Workflow
+
+on:
+  push:
+    branches:
+      - certora
+  pull_request:
+    branches:
+      - master
+      - master-report
+      - certora-report
+  workflow_dispatch:
+
+jobs:
+  certora_run:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      statuses: write
+      pull-requests: write
+      id-token: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+      - name: Install Foundry
+        uses: foundry-rs/foundry-toolchain@v1
+        with:
+          version: nightly
+      - name: Install forge dependencies
+        run: forge install
+      - name: Munge code
+        run: ./certora/scripts/munge.sh
+      - name: Run Certora pipeline
+        uses: Certora/certora-run-action@v2.3.0
+        with:
+          configurations: |-
+            certora/confs/CashModuleCore.conf
+            certora/confs/EtherFiSafe.conf
+          solc-versions: 0.8.28
+          solc-remove-version-prefix: "0."
+          job-name: "EtherFi Contracts"
+          certora-key: ${{ secrets.CERTORAKEY }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
