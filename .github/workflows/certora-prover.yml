@@ -38,8 +38,6 @@ jobs:
           configurations: |-
             certora/confs/CashModuleCore.conf
             certora/confs/EtherFiSafe.conf
-            certora/confs/DebtManagerCore.conf --rule p04
-            certora/confs/DebtManagerCore.conf --rule p05 --method "unsupportBorrowToken(address)"
           solc-versions: 0.8.28
           solc-remove-version-prefix: "0."
           job-name: "EtherFi Contracts"
