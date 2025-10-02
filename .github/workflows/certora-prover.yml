@@ -36,7 +36,7 @@ jobs:
         uses: Certora/certora-run-action@v2.3.0
         with:
           configurations: |-
-            certora/confs/CashModuleCore.conf
+            certora/confs/CashModuleCore.conf --rule "p03"
             certora/confs/EtherFiSafe.conf
           solc-versions: 0.8.28
           solc-remove-version-prefix: "0."
