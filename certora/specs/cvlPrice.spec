@@ -8,8 +8,6 @@ methods {
   function PriceProvider.decimals() external returns (uint8) envfree;
 }
 
-// TODO - ghost: mapping  timestamp -> uint256
-
 ghost uint256 ETH_price;
 ghost uint256 WETH_price;
 ghost uint256 OTHER_price;
